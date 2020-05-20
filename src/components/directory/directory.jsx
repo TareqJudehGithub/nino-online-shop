@@ -14,51 +14,56 @@ class Directory extends React.Component {
                          imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
                          size: 'large',
                          id: 1,
-                         linkUrl: 'shop/womens'
+                         linkUrl: ''
                     },
                     {
                          title: 'mens',
                          imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
                          size: 'large',
                          id: 2,
-                         linkUrl: 'shop/mens'
+                         linkUrl: ''
                     },
                     {
                          title: 'sneakers',
                          imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
                          id: 3,
-                         linkUrl: 'shop/sneakers',
+                         linkUrl: '',
                          size: "large"
                     },
                     {
                          title: 'jackets',
                          imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
                          id: 4,
-                         linkUrl: 'shop/jackets',
+                         linkUrl: '',
                          size: "large"
                     },
                     {
                          title: 'hats',
                          imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
                          id: 5,
-                         linkUrl: 'shop/hats',
+                         linkUrl: 'hats',
                          size: "large"
                     }        
                ]
           };
      };
+     
      render() {
           return(
                <div className="directory-menu">
                     {
-                         this.state.sections.map(({id, title, imageUrl, size}) => {
+                         this.state.sections
+                         .map(({id, ...otherSectionProps}) => {
                               return (
                                    <MenuItem 
+
                                    key={id}
-                                   id={id}
-                                   title={title}
-                                   imageUrl={imageUrl}
-                                   size={size}
+                                   {...otherSectionProps}
+                                   // id={id}
+                                   // title={title}
+                                   // imageUrl={imageUrl}
+                                   // size={size}
+                                   // linkUrl={linkUrl}
                                    />
                               )
                          })
