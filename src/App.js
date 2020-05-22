@@ -18,6 +18,7 @@ function App() {
           <Route exact path="/" component={HomePage}/>
           <Route path="/shop" component={ShopPage}/>
           <Route path="/signin" component={SignInAndSignOutPage}/>
+          <Route path="/orders" component={() => <h1>Orders Page</h1>}/>
         </Switch>   
       </div>
     </ThemeProvider>
