@@ -62,6 +62,7 @@ const styles = makeStyles(theme => ({
           marginLeft: "auto"
      },
      drawerIcon: {
+          color: theme.palette.primary.main,
           [theme.breakpoints.down("sm")]: {
                width: "35px",
                height: "35px"
