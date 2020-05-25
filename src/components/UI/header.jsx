@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
+import {auth} from "../../firebase/firebase.util";
 // import { ReactComponent as Logo} from "../../assets/images/ninos-logo.svg";
 import Logo from "../../assets/images/ninos-logo.svg"
-
 //Material-UI imports:
 import {
      AppBar, Toolbar, Tab, Tabs,
@@ -20,7 +20,7 @@ import styles from "./makestyles";
 // import './header.scss';
 
 
-const Header = () => {
+const Header = ({ currentUser}) => {
 
      const classes = styles();
 
@@ -63,11 +63,24 @@ const tabs = (
                               component={Link} to="/shop"
                               label="Shop"                        
                               />  
-                              <Tab 
-                              className={classes.tab}
-                              component={Link} to="/orders"
-                              label="Orders"
-                              />                   
+                              {
+                                   currentUser
+                                   ?
+                                   <Tab 
+                                   className={classes.tab}
+                                   onClick={() => auth.signOut()}
+                                   component={Link} to="/"
+                                   label="Sign Out"
+                                   /> 
+                                   :
+                                   <Tab 
+                                   className={classes.tab}
+                                   component={Link} to="/signin"
+                                   label="Sign In"
+                                   /> 
+
+                              }
+                                              
                          </Tabs>
      </React.Fragment>
 )

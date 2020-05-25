@@ -27,6 +27,7 @@ const styles = makeStyles(theme => ({
      },
      tabContainer: {
           marginLeft: "auto",
+          paddingRight: "10px"
      },
      tab: {
           ...theme.typography.tab,
