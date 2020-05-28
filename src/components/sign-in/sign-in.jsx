@@ -1,9 +1,10 @@
 import React from "react";
 import FormInput from "../form-input/form-input";
-import CustomButton from '../custom-button/custom-button';
-
+// import CustomButton from '../custom-button/custom-button';
+import Button from "@material-ui/core/Button"
 //google authentication:
-import {signInWithGoogle} from "../../firebase/firebase.util";
+import {auth, signInWithGoogle} from "../../firebase/firebase.util";
+import {withRouter} from "react-router-dom";
 
 import "./sign-in.scss";
 
@@ -16,19 +17,31 @@ class SignIn extends React.Component {
           }
      };
 
-     handleSubmit = event => {
+     handleSubmit = async (event) => {
           event.preventDefault();
-          this.setState({
-               email: "",
-               password: ""
-          })
+          const { email, password } = this.state;
+          try {
+                
+                    auth.signInWithEmailAndPassword(email, password);
+                    this.setState({
+                         email: "",
+                         password: ""
+                    })
+                    console.log("Sign In was successfull!");
+                    this.props.history.push("/");
+
+          } catch (error) {
+               console.log(error);
+               alert("Invalid username/password!");
+          }
+         
      };
-    
      handleChange = event => {
           const { name, value } = event.target; //name and value from target <input />
           this.setState({ [name]: value}) //will dynamically setState depends on
                                           //name and value.
      }
+     
      render() {
           return(
                <div className="sign-in">
@@ -38,36 +51,45 @@ class SignIn extends React.Component {
                     </span>
                     
                     <form onSubmit={this.handleSubmit}>
+
                          <FormInput 
                          handleChange={this.handleChange}
                          label="email"
                          name="email"
                          type="email"
                          value={this.state.email}
-                         // placeholder="exampl@email.com"   
+                         autoComplete="email-address"
                          required
-                          
-                         />
+                         
+                          >
+                         </FormInput>
                          <FormInput 
                          handleChange={this.handleChange}  
                          label="password"
                          name="password"
                          type="password"
                          value={this.state.password}
+                         autoComplete="current-password"         
                          // placeholder="Enter your password"   
                          required         
-                         />
-                         <div className="btns">
-                         <CustomButton type="submit" value="Submit Form">
-                              Sign In
-                         </CustomButton>
-
-                         <CustomButton 
-                         onClick={signInWithGoogle}
-                         style={{marginLeft: "5px"}}
                          >
-                              Sign In with google
-                         </CustomButton>
+                         </FormInput>
+                         <div className="btns">
+                              <Button 
+                              variant="contained" color="primary"
+                              type="submit" value="Submit Form">
+                                   Sign In
+                              </Button>
+
+                              <Button
+                              onClick={signInWithGoogle}
+                              style={{marginLeft: "5px"}}
+                              type="button"
+                              variant="contained"
+                              color="secondary"
+                              >
+                                   Sign In with google
+                              </Button>
                          </div>
                          
                     </form>
@@ -76,4 +98,4 @@ class SignIn extends React.Component {
           )
      }
 }
-export default SignIn;
+export default withRouter(SignIn);

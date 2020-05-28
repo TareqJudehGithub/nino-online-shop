@@ -4,7 +4,7 @@ import Header from "./components/UI/header";
 import HomePage from "./pages/homepage/hompage";
 import ShopPage from "./pages/shop/shop";
 import SignInAndSignOutPage from "./pages/sign-in-sign-up/sign-in-sign-up";
-import {auth} from "./firebase/firebase.util";
+import {auth, createUserProfileDocument} from "./firebase/firebase.util";
 
 //material UI imports:
 import { ThemeProvider } from '@material-ui/core';
@@ -23,10 +23,26 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({currentUser: user})
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      //if a user signs in, we'll check if:
+      if(userAuth) {
+        //we'll get back his user info through the userAuth (already exists in firebase):
+        const userRef = await createUserProfileDocument(userAuth);
+       
+        //load user snapShot
+        userRef.onSnapshot(snapShot => {
+     
+        this.setState({
+          currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+          }
+        })
+      });
+      }
+      else{ //if the snapShot returns empty (the user logs out): set userAuth to null.
+        this.setState({currentUser: userAuth});  
+      }
     });
   }
     componentWillUnmount() {

@@ -1,37 +1,54 @@
 //firebase imports setup:
 import firebase from "firebase/app";
-
 import "firebase/firestore"; //db
 import "firebase/auth";      //authentication
 
-
 const config = {
-     apiKey: "AIzaSyBDN3ElWrVSETlOFx25-dA45H2AN7RJRvY",
-     authDomain: "ninoz-shopdb.firebaseapp.com",
-     databaseURL: "https://ninoz-shopdb.firebaseio.com",
-     projectId: "ninoz-shopdb",
-     storageBucket: "ninoz-shopdb.appspot.com",
-     messagingSenderId: "55213092449",
-     appId: "1:55213092449:web:1dee39b1c66c8ff655c420",
-     measurementId: "G-T0VGTWQVQM"
+   apiKey: "AIzaSyCIRAxQQkja29M1hni-z3FH-Vgac_GRQng",
+    authDomain: "nino-s-shop.firebaseapp.com",
+    databaseURL: "https://nino-s-shop.firebaseio.com",
+    projectId: "nino-s-shop",
+    storageBucket: "nino-s-shop.appspot.com",
+    messagingSenderId: "1009451037034",
+    appId: "1:1009451037034:web:16bd857f7e57e2796b7513",
+    measurementId: "G-G8B6X5F982"
    };
-
    firebase.initializeApp(config);
 
-//authentication import: (we import this whenever we needed authentication)
+//Storing user Data in Firebase:
+ 
+ export const createUserProfileDocument = async (userAuth, additionalData) => {
+
+   if (!userAuth) return;  
+      const userRef = firestore.doc(`users/${userAuth.uid}`);
+      const snapShot = await userRef.get(); 
+
+      if(!snapShot.exists) {
+         //create the db using userRef
+         const { displayName, email } = userAuth;
+         const createdAt = new Date();  
+         try {
+            await userRef.set({ 
+               displayName,
+               email,
+               createdAt,
+               ...additionalData
+            })
+         } catch (error) {
+            console.log("error creating user", error.message);
+         }
+      }
+      return userRef;
+   };
+
 export const auth = firebase.auth();  
-//database import: (we import this whenever we needed the use of database)
 export const firestore = firebase.firestore();
 
 //Google authentication utility:
 
-   //A. determines which auth to access (in our case access to google authentication) 
-   //from the auth library: 
 const provider = new firebase.auth.GoogleAuthProvider();
-   //B. trigger the google popup menu, whenever we use googleAuthProvier();
-provider.setCustomParameters({ prompt: "select_account"})
-   //C. func that determines which popup we are calling:  (google or email/password)
-export const signInWithGoogle = () => auth.signInWithPopup(provider)
+provider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 
-export default firebase;  //in case we needed the whole library
+export default firebase; 
