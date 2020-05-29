@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Redirect} from "react-router-dom";
 import Header from "./components/UI/header";
 import HomePage from "./pages/homepage/hompage";
 import ShopPage from "./pages/shop/shop";
@@ -55,19 +55,33 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/shop" component={ShopPage}/>
-            <Route path="/signin" component={SignInAndSignOutPage}/>
-            {/* <Route path="/orders" component={() => <h1>Orders Page</h1>}/> */}
+            {/* <Route path="/signin" component={SignInAndSignOutPage}/>     */}
+            <Route exact path="/signin" render={() =>
+              this.props.currentUser 
+              ? 
+              (
+                <Redirect to="/"/>
+              )
+              :
+              (
+                <SignInAndSignOutPage />
+              )
+              }/> 
           </Switch>   
         </div>
       </ThemeProvider>
     );
   }
-  
 }
+const mapStateToProps =({ user }) => ({
+  currentUser: user.currentUser
+})
 const mapDispatchToProps = (dispatch) => ({
   //whatever object we passing to dispatch, is goin to be an action object, redux
   //passes to every reducer.
   setCurrentUser: user => dispatch(setCurrentUser(user))  //invoking setCurrentuser
   //with the payload from the user.reducer.  object returning an action object.
 });
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+ 
