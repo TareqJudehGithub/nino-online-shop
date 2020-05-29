@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
+import Logo from "../../assets/images/ninos-logo.svg";
+//redux imports:
+import { connect } from 'react-redux';
+//react-router-dom imports:
 import {Link} from "react-router-dom";
+//firebase imports:
 import {auth} from "../../firebase/firebase.util";
 // import { ReactComponent as Logo} from "../../assets/images/ninos-logo.svg";
-import Logo from "../../assets/images/ninos-logo.svg"
+
+
 //Material-UI imports:
 import {
      AppBar, Toolbar, Tab, Tabs,
@@ -14,13 +20,12 @@ import {
      } from '@material-ui/core/';
 import {useTheme} from "@material-ui/styles";
 import MenuIcon from "@material-ui/icons/Menu"
-
 import styles from "./makestyles";
 
 // import './header.scss';
 
 
-const Header = ({ currentUser}) => {
+const Header = ({ currentUser }) => {
 
      const classes = styles();
 
@@ -66,19 +71,18 @@ const tabs = (
                               {
                                    currentUser
                                    ?
-                                   <Tab 
+                                  ( <Tab 
                                    className={classes.tab}
                                    onClick={() => auth.signOut()}
                                    component={Link} to="/"
                                    label="Sign Out"
-                                   /> 
+                                   /> )
                                    :
-                                   <Tab 
+                                   (<Tab 
                                    className={classes.tab}
                                    component={Link} to="/signin"
                                    label="Sign In"
-                                   /> 
-
+                                   />) 
                               }
                                               
                          </Tabs>
@@ -203,18 +207,11 @@ useEffect(() => {
                </AppBar>
                <div className={classes.toolbarMargin}/>
           </React.Fragment>
-          // <div className="header">
-          //      <Link 
-          //      className="logo-container"
-          //      to="/">
-          //          <Logo className="logo"/>
-          //      </Link>
-          //      <div className="options">
-          //           <Link className="option" to="/shop">Shop</Link>
-          //           <Link className="option" to="/contact">Contact</Link>
-          //           <Link className="option" to="/about">About</Link>
-          //      </div>
-          // </div>
      )
 }
-export default Header;
+const mapStateToProps = (state) => ({
+     currentUser: state.user.currentUser  //The rootReducer(the user value),
+     //which will give us the userReducer, and from there, the userReducer will
+     //give us the currentUser value.
+});
+export default connect(mapStateToProps)(Header);

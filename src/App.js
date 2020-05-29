@@ -10,42 +10,39 @@ import {auth, createUserProfileDocument} from "./firebase/firebase.util";
 import { ThemeProvider } from '@material-ui/core';
 import theme from "./components/UI/theme/theme";
 
+//redux imports:
+import { connect } from 'react-redux';
+import {setCurrentUser} from "./redux/user/user.actions";
+
 
 class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      currentUser: null
-    }
-  };
 
   //to close any open subscription:
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       //if a user signs in, we'll check if:
-      if(userAuth) {
+      if (userAuth) {
         //we'll get back his user info through the userAuth (already exists in firebase):
         const userRef = await createUserProfileDocument(userAuth);
        
         //load user snapShot
         userRef.onSnapshot(snapShot => {
-     
-        this.setState({
-          currentUser: {
+          setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
-          }
-        })
+          });
       });
       }
-      else{ //if the snapShot returns empty (the user logs out): set userAuth to null.
-        this.setState({currentUser: userAuth});  
-      }
+     //if the snapShot returns empty (the user logs out): set userAuth to null.
+      setCurrentUser(userAuth);  
     });
   }
-    componentWillUnmount() {
+
+  componentWillUnmount() {
     //closing any open auth subscription:
     this.unsubscribeFromAuth();
   }
@@ -54,12 +51,12 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <Header currentUser={this.state.currentUser}/> 
+          <Header /> 
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/shop" component={ShopPage}/>
             <Route path="/signin" component={SignInAndSignOutPage}/>
-            <Route path="/orders" component={() => <h1>Orders Page</h1>}/>
+            {/* <Route path="/orders" component={() => <h1>Orders Page</h1>}/> */}
           </Switch>   
         </div>
       </ThemeProvider>
@@ -67,5 +64,10 @@ class App extends React.Component {
   }
   
 }
-
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  //whatever object we passing to dispatch, is goin to be an action object, redux
+  //passes to every reducer.
+  setCurrentUser: user => dispatch(setCurrentUser(user))  //invoking setCurrentuser
+  //with the payload from the user.reducer.  object returning an action object.
+});
+export default connect(null, mapDispatchToProps)(App);
