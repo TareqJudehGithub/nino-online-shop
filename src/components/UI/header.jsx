@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/images/ninos-logo.svg";
+import CartIcon from "../cart-icon/cart-icon";
+import CartDropdown from "../cart-dropdown/cart-dropdown";
 //redux imports:
 import { connect } from 'react-redux';
 //react-router-dom imports:
@@ -25,30 +27,31 @@ import styles from "./makestyles";
 // import './header.scss';
 
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
 
      const classes = styles();
 
-//states:
+//Material-UI states:
      //tabs state:
      const [value, setValue] = useState(false);
 
      //Drawer state:
      const [openDrawer, setopenDrawer] = useState(false);
 
-//methods:
+//Material-UI methods:
      //tabs methods:
      const handleChange = (event, newValue) => {
           setValue(newValue);
      }
      
-//responsive design:
+//Material-UI responsive design variables:
 const theme = useTheme();
 const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-//to test mobile device responsivness:
+  //to test mobile device responsivness:
 const iOS = process.browser && /iPad|iPhone|iPod/
 .test(navigator.userAgent);
+
 //responsive tabs:
 const tabs = (
      <React.Fragment>
@@ -58,34 +61,42 @@ const tabs = (
          value={value}
          indicatorColor="primary"
          >                  
-                               <Tab           
-                              className={classes.tab}
-                              component={Link} to="/"
-                              label="Home"
-                              />
-                              <Tab 
-                              className={classes.tab}
-                              component={Link} to="/shop"
-                              label="Shop"                        
-                              />  
-                              {
-                                   currentUser
-                                   ?
-                                  ( <Tab 
-                                   className={classes.tab}
-                                   onClick={() => auth.signOut()}
-                                   component={Link} to="/"
-                                   label="Sign Out"
-                                   /> )
-                                   :
-                                   (<Tab 
-                                   className={classes.tab}
-                                   component={Link} to="/signin"
-                                   label="Sign In"
-                                   />) 
-                              }
-                                              
-                         </Tabs>
+               <Tab           
+               className={classes.tab}
+               component={Link} to="/"
+               label="Home"
+               />
+               <Tab 
+               className={classes.tab}
+               component={Link} to="/shop"
+               label="Shop"                        
+               />  
+               {
+                    currentUser
+                    ?
+                    ( <Tab 
+                    className={classes.tab}
+                    onClick={() => auth.signOut()}
+                    component={Link} to="/"
+                    label="Sign Out"
+                    /> )
+                    :
+                    (<Tab 
+                    className={classes.tab}
+                    component={Link} to="/signin"
+                    label="Sign In"
+                    />) 
+               } 
+               <CartIcon />                       
+          </Tabs>
+          {
+               hidden
+               ?
+               null
+               :
+               <CartDropdown />
+          }
+          
      </React.Fragment>
 )
 const drawer = (
@@ -98,7 +109,7 @@ const drawer = (
           onClose={() => setopenDrawer(false)}
           >
                <List disablePadding>
-               <ListItem
+                    <ListItem
                     component={Link} to="/"
                     onClick={() => {
                          setopenDrawer(false);
@@ -114,6 +125,7 @@ const drawer = (
                               className={classes.logo}/>
                          </ListItemText>
                     </ListItem>
+
                     <ListItem
                     component={Link} to="/"
                     onClick={() => {
@@ -129,16 +141,40 @@ const drawer = (
                          </ListItemText>
                     </ListItem>
              
-                    <ListItem>
+                    <ListItem
+                    component={Link} to="/shop"
+                    onClick={ () => {
+                         setopenDrawer(false);
+                         setValue(1);
+                    }}
+                    selected={value === 1}
+                    >
                          <ListItemText>
-                              SHop
+                              Shop
                          </ListItemText>
                     </ListItem>
              
-                    <ListItem>
-                         <ListItemText>
-                              Orders
-                         </ListItemText>
+                    <ListItem
+                    component={Link} to="/signin"
+                    onClick={() => {
+                         setopenDrawer(false);
+                         setValue(2);
+                    }}
+                    selected={value === 2}>
+                   {
+                        currentUser
+                        ?
+                        <ListItemText
+                        onClick={() =>auth.signOut()}>
+                             Sign Out
+                        </ListItemText>
+                        :
+                        <ListItemText
+                        component={Link} to="/">                      
+                             Sign In
+                        </ListItemText>
+                   }
+                        
                     </ListItem>
                </List>
           </SwipeableDrawer>
@@ -189,12 +225,9 @@ useEffect(() => {
                               <img src={Logo} 
                               alt="company logo"
                               className={classes.logo}/>
-                              
-                              {/* <Logo
-                               className={classes.logo} />  */}
                          </Button>
                          
-                         {/*tabs/drawer display statement */}
+                         {/* Tabs/Drawer display statement */}
                          {
                               matches
                               ?
@@ -209,9 +242,11 @@ useEffect(() => {
           </React.Fragment>
      )
 }
-const mapStateToProps = (state) => ({
-     currentUser: state.user.currentUser  //The rootReducer(the user value),
-     //which will give us the userReducer, and from there, the userReducer will
-     //give us the currentUser value.
+const mapStateToProps = ({
+     user: { currentUser},
+     cart: { hidden}
+     }) => ({
+          currentUser: currentUser,
+          hidden: hidden  
 });
 export default connect(mapStateToProps)(Header);

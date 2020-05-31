@@ -24,12 +24,12 @@ class App extends React.Component {
     const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      //if a user signs in, we'll check if:
+    
       if (userAuth) {
-        //we'll get back his user info through the userAuth (already exists in firebase):
+      //user login
         const userRef = await createUserProfileDocument(userAuth);
        
-        //load user snapShot
+       
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
             id: snapShot.id,
@@ -37,7 +37,7 @@ class App extends React.Component {
           });
       });
       }
-     //if the snapShot returns empty (the user logs out): set userAuth to null.
+    //user logout
       setCurrentUser(userAuth);  
     });
   }
@@ -55,7 +55,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/shop" component={ShopPage}/>
-            {/* <Route path="/signin" component={SignInAndSignOutPage}/>     */}
+            
             <Route exact path="/signin" render={() =>
               this.props.currentUser 
               ? 
