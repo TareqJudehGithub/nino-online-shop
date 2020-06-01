@@ -13,6 +13,8 @@ import theme from "./components/UI/theme/theme";
 //redux imports:
 import { connect } from 'react-redux';
 import {setCurrentUser} from "./redux/user/user.actions";
+import {createStructuredSelector} from "reselect";
+import {selectCurrentUsers} from "./redux/user/user.selectors";
 
 
 class App extends React.Component {
@@ -73,8 +75,11 @@ class App extends React.Component {
     );
   }
 }
-const mapStateToProps =({ user }) => ({
-  currentUser: user.currentUser
+// const mapStateToProps =({ user }) => ({
+//   currentUser: user.currentUser
+// })
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUsers
 })
 const mapDispatchToProps = (dispatch) => ({
   //whatever object we passing to dispatch, is goin to be an action object, redux
