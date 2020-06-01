@@ -24,8 +24,6 @@ import {useTheme} from "@material-ui/styles";
 import MenuIcon from "@material-ui/icons/Menu"
 import styles from "./makestyles";
 
-// import './header.scss';
-
 
 const Header = ({ currentUser, hidden }) => {
 
@@ -89,14 +87,11 @@ const tabs = (
                } 
                <CartIcon />                       
           </Tabs>
-          {
-               hidden
-               ?
-               null
-               :
-               <CartDropdown />
-          }
           
+          {
+          // show/hide cart dropdown menu:
+               hidden ? null : <CartDropdown />
+          }
      </React.Fragment>
 )
 const drawer = (
@@ -208,12 +203,8 @@ useEffect(() => {
      }
 },[value])
      return (
-
           <React.Fragment>
-               <AppBar 
-               position="fixed" 
-               color="secondary"
-               >
+               <AppBar position="fixed" color="secondary">
                     <Toolbar disableGutters
                      className={classes.appHeader}>
                          <Button
@@ -226,7 +217,7 @@ useEffect(() => {
                               alt="company logo"
                               className={classes.logo}/>
                          </Button>
-                         
+                        
                          {/* Tabs/Drawer display statement */}
                          {
                               matches
@@ -235,7 +226,6 @@ useEffect(() => {
                               :
                               tabs
                          }
-
                     </Toolbar>
                </AppBar>
                <div className={classes.toolbarMargin}/>

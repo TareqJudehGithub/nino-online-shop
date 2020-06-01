@@ -1,9 +1,7 @@
 import React from "react";
 import CollectionItem from '../collection-item/collection-item';
 
-
 import "./collection-preview.scss";
-
 
 const CollectionPreview = ({title, items}) => {
      return (
@@ -13,11 +11,11 @@ const CollectionPreview = ({title, items}) => {
                     {
                          items
                          .slice(0, 4) //OR .filter((item, index) => index < 4)
-                         .map(({id, ...OtherItemProps}) => {
+                         .map((item) => {
                               return(
                                    <CollectionItem 
-                                        key={id}
-                                        {...OtherItemProps}
+                                        key={item.id}
+                                        collectionItem={item} //passing the whole items
                                    />
                               )
                               
