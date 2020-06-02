@@ -37,16 +37,32 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
                     )
                }
                </div>
-               <Button 
-               variant="contained" 
-               color="secondary"
-               onClick={() => {
-                    history.push("/checkout");
-                    dispatch(toggleCartHidden())
-               }}
-               style={{marginTop: "auto"}}>
-                    Checkout
-               </Button>
+               {
+                    cartItems.length
+                    ?
+                    <Button 
+                    variant="contained" 
+                    color="secondary"
+                    onClick={() => {
+                         history.push("/checkout");
+                         dispatch(toggleCartHidden())
+                    }}
+                    style={{marginTop: "auto"}}>
+                         Checkout
+                    </Button>
+                    :
+                    <Button
+                    disabled 
+                    variant="contained" 
+                    color="secondary"
+                    onClick={() => {
+                         history.push("/checkout");
+                         dispatch(toggleCartHidden())
+                    }}
+                    style={{marginTop: "auto"}}>
+                         Checkout
+                    </Button>
+               }
           </div>
      )
 }

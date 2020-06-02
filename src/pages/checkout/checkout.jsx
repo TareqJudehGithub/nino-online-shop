@@ -1,5 +1,6 @@
 import React from "react";
 import CheckoutItem from '../../components/checkout-item/checkout-item';
+import {Redirect} from "react-router-dom"
 //redux:
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -32,6 +33,8 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                </div>
                {
                     //checkout items 
+                    cartItems.length
+                    ?
                     cartItems.map(cartItem => {
                          return (
                               <CheckoutItem 
@@ -40,9 +43,26 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                               />
                          )
                     })
+                    :
+                    <Redirect to="/"/>
                }
                <div className="total">
-                    <span>Total: {itemCount} item(s) ${cartTotal}</span>
+                    <span>
+                         {
+                              itemCount === 0 && cartTotal <= 0
+                              ?
+                              null
+                              :
+                              itemCount === 1 
+                              ?
+                              `Total: (${itemCount} item): $${cartTotal}`
+                              :
+                              `Total: (${itemCount} items): $${cartTotal}`
+
+
+                         }
+                         
+                         </span>
                </div>
           </div>
      )
