@@ -93,6 +93,11 @@ const styles = makeStyles(theme => ({
           display: "flex",
           flexDirection: "column",
           overflow: "auto"
+     },
+     emptyMsg: {
+          fontSize: "1em",
+          margin: "50px auto",
+          color: "black"
      }
 }));
 

@@ -9,15 +9,20 @@ import {createStructuredSelector} from "reselect";
 import ShopCart from "@material-ui/icons/ShoppingCartOutlined";
 import './cart-icon.styles.scss';
 
-const CartIcon = ({ toggleCartHidden, itemCount }) => {
+const CartIcon = ({ itemCount, dispatch }) => {
      return(
           <div 
           className="cart-icon"
-          onClick={() => toggleCartHidden()}
+          onClick={() => dispatch(toggleCartHidden())}
           >
                <ShopCart />
                {/* <ShoppingIcon className="shopping-icon"/> */}
-               <span className="item-count">{itemCount}</span>
+               <span className="item-count">
+                    {
+                         itemCount <= 0 ? null : itemCount
+                    }
+                    
+               </span>
           </div>
      )
 }
@@ -25,8 +30,8 @@ const mapStateToProps = createStructuredSelector({
     itemCount: selectCartItemsCount
 });
      
-const mapDispatchtoProps = (dispatch) => ({
-     toggleCartHidden: () => dispatch(toggleCartHidden())
-});
+// const mapDispatchtoProps = (dispatch) => ({
+//      toggleCartHidden: () => dispatch(toggleCartHidden())
+// });
 
-export default connect(mapStateToProps, mapDispatchtoProps)(CartIcon);
+export default connect(mapStateToProps)(CartIcon);

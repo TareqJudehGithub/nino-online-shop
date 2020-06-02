@@ -1,9 +1,12 @@
 import React from 'react';
-import {Switch, Route, Redirect} from "react-router-dom";
+//React components:
 import Header from "./components/UI/header";
 import HomePage from "./pages/homepage/hompage";
 import ShopPage from "./pages/shop/shop";
+import CheckoutPage from "./pages/checkout/checkout";
 import SignInAndSignOutPage from "./pages/sign-in-sign-up/sign-in-sign-up";
+
+import {Switch, Route, Redirect} from "react-router-dom";
 import {auth, createUserProfileDocument} from "./firebase/firebase.util";
 
 //material UI imports:
@@ -57,7 +60,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/shop" component={ShopPage}/>
-            
+            <Route path="/checkout" component={CheckoutPage}/>
             <Route exact path="/signin" render={() =>
               this.props.currentUser 
               ? 
