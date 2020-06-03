@@ -10,6 +10,7 @@ import {
 import "./checkout.styles.scss";
 
 const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
+     
      return(
          
           <div className="checkout-page">
@@ -42,6 +43,7 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                               cartItem={cartItem} //passing cartItem prop to checkout-item comp.
                               />
                          )
+                         
                     })
                     :
                     <Redirect to="/"/>

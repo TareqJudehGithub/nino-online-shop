@@ -9,7 +9,7 @@ import {createStructuredSelector} from "reselect";
 
 //styles:
 import Button from "@material-ui/core/Button";
-import styles from "../UI/makestyles";
+import styles from "./cart-dropdown.styles";
 import "./cart-dropdown.styles.scss";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
@@ -41,6 +41,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
                     cartItems.length
                     ?
                     <Button 
+                    className={classes.cartBtn}
                     variant="contained" 
                     color="secondary"
                     onClick={() => {

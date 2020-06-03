@@ -1,6 +1,7 @@
 import React from 'react';
 //React components:
-import Header from "./components/UI/header";
+import Header from "./components/UI/header/header";
+import Footer from "./components/UI/footer/footer";
 import HomePage from "./pages/homepage/hompage";
 import ShopPage from "./pages/shop/shop";
 import CheckoutPage from "./pages/checkout/checkout";
@@ -72,15 +73,13 @@ class App extends React.Component {
                 <SignInAndSignOutPage />
               )
               }/> 
-          </Switch>   
+          </Switch> 
+          <Footer />  
         </div>
       </ThemeProvider>
     );
   }
 }
-// const mapStateToProps =({ user }) => ({
-//   currentUser: user.currentUser
-// })
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUsers
 })

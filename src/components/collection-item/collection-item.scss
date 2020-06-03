@@ -14,7 +14,7 @@
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
-  opacity: 0.85;
+  border-radius: 0.25em;
 
 }
 .btn {
@@ -42,12 +42,15 @@
     width: 10%;
   }
 }
+.btn:active {
+  background-color: #ff6d00;
+}
 &:hover {
   .image {
-    opacity: 1;
+    box-shadow: 0 0 10px #37474f;
   }
   .btn {
-    opacity: 1;
+    opacity: 0.75;
     display: flex;
   }
 }

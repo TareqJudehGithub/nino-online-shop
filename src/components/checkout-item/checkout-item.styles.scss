@@ -26,7 +26,16 @@
      .quantity {
       //  padding-left: 2px;
       .arrow {
+        font-size: 1.1em;
         cursor: pointer;
+      }
+      .arrow:hover,
+      .arrow:active {
+        color: #ff6d00;
+      }
+      .arrow:active {
+        color: #ff6d00;
+        font-size: 1em;
       }
       .value {
         margin: 0 1em;
@@ -34,8 +43,17 @@
      }
    
      .remove-button {
-       padding-left: 12px;
-       cursor: pointer;
+      font-size: 1.1em;
+      padding-left: 12px;
+      cursor: pointer;
      }
+     .remove-button:hover{
+       color: #ff6d00;
+     }
+     .remove-button:active{
+      color: #ff6d00;
+      font-size: 1em;
+    }
    }
+   
    

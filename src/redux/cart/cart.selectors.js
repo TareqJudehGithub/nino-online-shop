@@ -21,7 +21,7 @@ export const selectCartItemsCount = createSelector(
           }, 0);
      }
 );
-
+//cart total
 export const selectCartTotal = createSelector(
      [selectCartItems],
      cartItems => {

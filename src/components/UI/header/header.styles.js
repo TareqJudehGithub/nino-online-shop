@@ -27,19 +27,18 @@ const styles = makeStyles(theme => ({
      },
      tabContainer: {
           marginLeft: "auto",
-          paddingRight: "10px"
+          paddingRight: "10px",
      },
      tab: {
           ...theme.typography.tab,
           minWidth: 10,
           marginLeft: "25px",
-          color: "white",
           "&:hover": {
                fontWeight: "bold",            
-               backgroundColor: theme.palette.common.orange,
                borderRadius: "25px",
-               border: "1px solid orange"
-          },
+               textShadow : `0 0 12px ${theme.palette.common.orange}`,
+               backgroundColor: "transparent"
+          }
      },
      logoContainer: {
           padding: "1em",
@@ -63,7 +62,7 @@ const styles = makeStyles(theme => ({
           marginLeft: "auto"
      },
      drawerIcon: {
-          color: theme.palette.primary.main,
+          color: theme.palette.common.orange,
           [theme.breakpoints.down("sm")]: {
                width: "35px",
                height: "35px"
@@ -73,31 +72,30 @@ const styles = makeStyles(theme => ({
                height: "25px"
           }
      },
-     //cartDropdown:
-     CartDropdown: {
-          position: "absolute",
-          width: "240px",
-          height: "340px",
-          display: "flex",
-          flexDirection: "column",
-          padding: "20px",
-          boxShadow: "0 0 5px orangered",
-          // border: "1px solid orange",
-          backgroundColor: "white",
-          top: "90px",
-          right: "40px",
-          zIndex: 5
+     menu: {
+          backgroundColor: `rgb(55, 71, 79, 0.85)`,
+          marginTop: "2.9em",
+          right: "1em",
+          width: "10em",
+          boxShadow: `0 0 3px ${theme.palette.common.orange}`
      },
-     cartItems: {
-          height: "240px",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto"
+     firstMenuItem: {
+          ...theme.typography.firstMenuItem,
+          "&:hover":{
+               backgroundColor: "transparent"
+          }         
      },
-     emptyMsg: {
-          fontSize: "1em",
-          margin: "50px auto",
-          color: "black"
+     menuItem: {
+          ...theme.typography.tab,
+          opacity: 0.7,
+          ...theme.typography.menuItem,
+          "&:hover": {
+               opacity: 1,
+               backgroundColor: "transparent",
+               fontWeight: 1000,
+               color: theme.palette.common.orange
+          },
+          
      }
 }));
 

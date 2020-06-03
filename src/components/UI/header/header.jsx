@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../assets/images/ninos-logo.svg";
-import CartIcon from "../cart-icon/cart-icon";
-import CartDropdown from "../cart-dropdown/cart-dropdown";
+import Logo from "../../../assets/images/ninos-logo.svg";
+import CartIcon from "../../cart-icon/cart-icon";
+import CartDropdown from "../../cart-dropdown/cart-dropdown";
 //redux imports:
 import { connect } from 'react-redux';
 import {createStructuredSelector} from "reselect";
-import {selectCurrentUsers} from "../../redux/user/user.selectors";
-import {selectCartHidden} from "../../redux/cart/cart.selectors";
+import {selectCurrentUsers} from "../../../redux/user/user.selectors";
+import {selectCartHidden} from "../../../redux/cart/cart.selectors";
 
 //react-router-dom imports:
 import {Link} from "react-router-dom";
 //firebase imports:
-import {auth} from "../../firebase/firebase.util";
-// import { ReactComponent as Logo} from "../../assets/images/ninos-logo.svg";
-
+import {auth} from "../../../firebase/firebase.util";
 
 //Material-UI imports:
 import {
@@ -22,80 +20,141 @@ import {
      Button,
      useMediaQuery,
      SwipeableDrawer,
-     List, ListItem, ListItemText, IconButton
+     List, ListItem, ListItemText, IconButton,
+     Menu, MenuItem
      } from '@material-ui/core/';
 import {useTheme} from "@material-ui/styles";
 import MenuIcon from "@material-ui/icons/Menu"
-import styles from "./makestyles";
+import styles from "./header.styles";
 
 
 const Header = ({ currentUser, hidden }) => {
 
-     const classes = styles();
-
-//Material-UI states:
-     //tabs state:
-     const [value, setValue] = useState(false);
-
-     //Drawer state:
-     const [openDrawer, setopenDrawer] = useState(false);
-
-//Material-UI methods:
-     //tabs methods:
-     const handleChange = (event, newValue) => {
-          setValue(newValue);
-     }
+//Material-UI:
+     const classes = styles();     
+     const theme = useTheme();
+     const matches = useMediaQuery(theme.breakpoints.down("sm"));
      
-//Material-UI responsive design variables:
-const theme = useTheme();
-const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
-  //to test mobile device responsivness:
-const iOS = process.browser && /iPad|iPhone|iPod/
-.test(navigator.userAgent);
-
-//responsive tabs:
-const tabs = (
-     <React.Fragment>
-         <Tabs 
-         className={classes.tabContainer}
-         onChange={handleChange}
-         value={value}
-         indicatorColor="primary"
-         >                  
-               <Tab           
-               className={classes.tab}
-               component={Link} to="/"
-               label="Home"
-               />
-               <Tab 
-               className={classes.tab}
-               component={Link} to="/shop"
-               label="Shop"                        
-               />  
-               {
-                    currentUser
-                    ?
-                    ( <Tab 
-                    className={classes.tab}
-                    onClick={() => auth.signOut()}
-                    component={Link} to="/"
-                    label="Sign Out"
-                    /> )
-                    :
-                    (<Tab 
-                    className={classes.tab}
-                    component={Link} to="/signin"
-                    label="Sign In"
-                    />) 
-               } 
-               <CartIcon />                       
-          </Tabs>
+     const [value, setValue] = useState(false); //Tabs state
+     const [openDrawer, setopenDrawer] = useState(false); //Drawer state
+     const [anchorEL, setAnchorEL] = useState(null); //menu state
+     const [openMenu, setOpenMenu] = useState(false);//menu state
+     // const [selectedIndex, setselectedIndex] = useState(0); //menu selection states
+   
+     const handleChange = (event, newValue) => { //tabs methods
+          setValue(newValue);
+     }   
+     const handleClick = (event) => {            //menu method(s)
+          setAnchorEL(event.currentTarget);
+          setOpenMenu(true); 
           
+     };
+     const handleClose = (event) => {        //closing menu even handler
+          setAnchorEL(null);
+          setOpenMenu(false);
+     };
+     // const handleMenuItemClick = (e, index) => { //menu selection handler
+     //      setAnchorEL(null);
+     //      setOpenMenu(false);
+     //      setselectedIndex(index) //index item (menuitem) we're clicking
+     // }
+
+     const iOS = process.browser && /iPad|iPhone|iPod/ //mobile device responsivness
+     .test(navigator.userAgent);
+
+     const tabs = (
+          <React.Fragment>
+          <Tabs 
+          className={classes.tabContainer}
+          onChange={handleChange}
+          value={value}
+          indicatorColor="primary"
+          >                  
+                    <Tab           
+                    className={classes.tab}
+                    component={Link} to="/"
+                    label="Home"
+                    disableRipple
+                    />
+                    <Tab 
+                    className={classes.tab}
+                    component={Link} to="/shop"
+                    label="Shop"  
+                    disableRipple
+                    onClick={(event) => handleClick(event)}
+                    aria-owns={anchorEL ? "cart" : undefined}
+                    aria-haspopup={anchorEL ? "true" : undefined}
+                    />  
+                    {
+                         currentUser
+                         ?
+                         ( <Tab 
+                         className={classes.tab}
+                         onClick={() => auth.signOut()}
+                         component={Link} to="/"
+                         label="Sign Out"
+                         disableRipple
+                         /> )
+                         :
+                         (<Tab 
+                         className={classes.tab}
+                         component={Link} to="/signin"
+                         label="Sign In"
+                         disableRipple
+                         />) 
+                    } 
+                    <CartIcon />                       
+          </Tabs>   
           {
           // show/hide cart dropdown menu:
                hidden ? null : <CartDropdown />
           }
+          <Menu
+          classes={{paper: classes.menu}}
+          id="cart"
+          anchorEl={anchorEL}
+          open={openMenu}
+          onClose={handleClose}
+          elevation={0}
+          MenuListProps={{onMouseLeave: handleClose}}
+          
+          >
+               <MenuItem
+               classes={{root: classes.firstMenuItem}}
+               onClick={() => {
+                   handleClose()
+                    setValue(1)
+                    handleClose()
+               }}
+               component={Link} to="/shop"
+               >
+                    Shop
+               </MenuItem>
+               <MenuItem
+               classes={{root: classes.menuItem}}
+               onClick={() => {
+                   handleClose()
+                    setValue(1)
+                    handleClose()
+               }}
+               component={Link} to="/shop"
+               >
+                    Women
+               </MenuItem>
+               <MenuItem
+               classes={{root: classes.menuItem}}
+               onClick={() => {
+                   handleClose()
+                    setValue(1)
+                    handleClose()
+               }}
+               component={Link} to="/shop"
+               >
+                    Men
+               </MenuItem>
+          </Menu>
+
+         
      </React.Fragment>
 )
 const drawer = (
@@ -221,8 +280,7 @@ useEffect(() => {
                               alt="company logo"
                               className={classes.logo}/>
                          </Button>
-                        
-                         {/* Tabs/Drawer display statement */}
+                               
                          {
                               matches
                               ?

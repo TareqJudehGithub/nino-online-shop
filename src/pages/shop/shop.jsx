@@ -4,7 +4,7 @@ import CollectionPreview from "../../components/collection-preview/collection-pr
 import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {currentShop} from "../../redux/shop_data/shop_data.selectors";
-
+import './shop.scss';
 
 class ShopPage extends React.Component {
     
@@ -12,13 +12,13 @@ class ShopPage extends React.Component {
 
           const { collections } = this.props;
           return(
-               <div className="shop=page">
+               <div className="shop-page">
                    {
-                    collections.map(({id, ...otherCollectionProps}) => {
+                    collections.map((shopItem) => {
                          return (
                               <CollectionPreview                     
-                              key={id}
-                              {...otherCollectionProps}
+                              key={shopItem.id}
+                              shopItem={shopItem}
                          />
                          )
                          
