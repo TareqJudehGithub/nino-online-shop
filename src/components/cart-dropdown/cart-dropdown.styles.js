@@ -3,12 +3,12 @@ import {makeStyles} from "@material-ui/core/";
 const useStyles = makeStyles(theme => ({
      CartDropdown: {
           position: "absolute",
-          width: "240px",
+          width: "300px",
           height: "340px",
           display: "flex",
           flexDirection: "column",
           padding: "20px",
-          boxShadow: "0 0 2px grey",
+          boxShadow: "0 0 5px grey",
           backgroundColor: "white",
           borderRadius: "5px",
                [theme.breakpoints.down("xl")]:{
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
           zIndex: 5
      },
      cartItems: {
+          fontSize: "1em",
           height: "220px",
           display: "flex",
           flexDirection: "column",
@@ -54,9 +55,10 @@ const useStyles = makeStyles(theme => ({
           flexDirection: "column"
      },
      cartBtn: {
+          width: "75%",
+          margin: " 0 auto",
           "&:active": {
-               backgroundColor: "#ff6d00",
-               margin: " 0 auto"
+               backgroundColor: "#ff6d00"
           }    
      }
 }))

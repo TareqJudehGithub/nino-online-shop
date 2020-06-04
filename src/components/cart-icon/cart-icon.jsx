@@ -14,6 +14,7 @@ const CartIcon = ({ itemCount, dispatch }) => {
           <div 
           className="cart-icon"
           onClick={() => dispatch(toggleCartHidden())}
+         
           >
                <ShopCart />
                {/* <ShoppingIcon className="shopping-icon"/> */}
