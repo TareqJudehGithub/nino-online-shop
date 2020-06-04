@@ -38,7 +38,6 @@ const useStyle = makeStyles(theme => ({
           height: "5px",
           position: "absolute",
           bottom: "5.5%",
-          // right: "45%",
           marginBottom: "10px",
           fontSize: "14px",
           color: "grey",

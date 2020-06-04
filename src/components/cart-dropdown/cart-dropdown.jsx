@@ -3,7 +3,7 @@ import CartItem from "../cart-item/cart-item";
 import {withRouter} from "react-router-dom";
 //redux:
 import {connect} from "react-redux";
-import {selectCartItems} from "../../redux/cart/cart.selectors";
+import {selectCartItems, selectCartTotal, selectCartItemsCount} from "../../redux/cart/cart.selectors";
 import {toggleCartHidden} from "../../redux/cart/cart.actions";
 import {createStructuredSelector} from "reselect";
 
@@ -12,24 +12,27 @@ import Button from "@material-ui/core/Button";
 import styles from "./cart-dropdown.styles";
 import "./cart-dropdown.styles.scss";
 
-const CartDropdown = ({ cartItems, history, dispatch }) => {
+const CartDropdown = ({ cartItems, cartTotal, itemsCount, history, dispatch }) => {
      const classes = styles();
 
      return (
           <div className={classes.CartDropdown}>
-               <div className={classes.cartItems}>
+               <div style={{textAlign: "center"}}>
                {
                     cartItems.length
                     ?
                     (
-                         cartItems.map(cartItem => {
+                         <div className={classes.cartItems}>
+                         {cartItems.map(cartItem => {
                               return(
                                    <CartItem 
                                    key={cartItem.id}
                                    cartItem={cartItem}
                                    />
                               )
-                         })
+                         })}
+                         <span>X</span>
+                         </div>
                     )
                     : 
                     (
@@ -37,20 +40,32 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
                     )
                }
                </div>
+             
+
                {
                     cartItems.length
                     ?
-                    <Button 
-                    className={classes.cartBtn}
-                    variant="contained" 
-                    color="secondary"
-                    onClick={() => {
-                         history.push("/checkout");
-                         dispatch(toggleCartHidden())
-                    }}
-                    style={{marginTop: "auto"}}>
-                         Checkout
-                    </Button>
+                    <div className={classes.cartFooter}>
+                         {
+                              itemsCount  <= 1
+                              ?
+                              `Total: (${itemsCount} item) $${cartTotal}`
+                              :
+                              `Total: (${itemsCount} items) $${cartTotal}`
+                         }
+                         
+                         <Button 
+                         className={classes.cartBtn}
+                         variant="contained" 
+                         color="secondary"
+                         onClick={() => {
+                              history.push("/checkout");
+                              dispatch(toggleCartHidden())
+                         }}
+                         style={{marginTop: "auto"}}>
+                              Checkout
+                         </Button>
+                    </div>
                     :
                     <Button
                     disabled 
@@ -64,11 +79,15 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
                          Checkout
                     </Button>
                }
+             
+               
           </div>
      )
 }
 const mapStateToProps = createStructuredSelector({
-cartItems: selectCartItems
+cartItems: selectCartItems,
+cartTotal: selectCartTotal,
+itemsCount: selectCartItemsCount
 });
 // const mapStateToDispatch = dispatch => ({
 

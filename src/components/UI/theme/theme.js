@@ -4,7 +4,7 @@ import blueGrey from "@material-ui/core/colors/blueGrey"
 
 const priOrange = orange[700];
 const secOrange = "#ff6d00";
-const white = orange[300];
+const lightOrange = orange[600];
 
 const headerColor = blueGrey[800];
 
@@ -17,7 +17,7 @@ export default createMuiTheme({
 
           },
           primary: {
-               main: `${white}`
+               main: `${lightOrange}`
           },
           secondary: {
                main: `${headerColor}`
@@ -36,13 +36,6 @@ export default createMuiTheme({
           menuItem: {
                fontSize: "0.8em",
                color: "white"
-          }
-     },
-     overrides: {
-          MuiButton: {
-               footerButton: {
-                    color: "white"
-               }
           }
      }
 });
