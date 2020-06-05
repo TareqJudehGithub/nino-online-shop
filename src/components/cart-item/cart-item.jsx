@@ -2,10 +2,9 @@ import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {connect} from "react-redux";
 import {clearItemFromCart} from "../../redux/cart/cart.actions";
-
 import "./cart-item.styles.scss";
 
-const CartItem = ({ cartItem, removeItem }) => {
+const CartItem = ({ cartItem, removeItem }) => { //cartitem prop from cart=dropdown.
      const { imageUrl, price, name, quantity } = cartItem;
      return (
           <div className="cart-item">

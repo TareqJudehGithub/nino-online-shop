@@ -38,12 +38,12 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                     ?
                     cartItems.map(cartItem => {
                          return (
+                             
                               <CheckoutItem 
                               key={cartItem.id}
                               cartItem={cartItem} //passing cartItem prop to checkout-item comp.
-                              />
-                         )
-                         
+                              />         
+                         )          
                     })
                     :
                     <Redirect to="/"/>

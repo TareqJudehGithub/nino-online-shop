@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Grid, Button} from "@material-ui/core/";
 import Logo from "../../../assets/images/ninos-logo.svg";
-import styles from './foot.styles';
+import styles from './footer.styles';
 
 const Footer = () =>{
      const classes = styles();
@@ -58,11 +58,24 @@ const Footer = () =>{
                               </Grid>       
                          </Grid>
                        </Grid>
+                       <Grid item 
+                       className={classes.gridItem}>
+                         <Grid container direction="column">
+                              <Grid item
+                              className={classes.mainLink}
+                              component={Link} to="/">
+                                   <img src={Logo} alt="logo" 
+                                   className={classes.img}/>
+                              </Grid>
+                            </Grid>
+                       </Grid>
                   </Grid>
               
                     <div className={classes.logo}>
-                         <img src={Logo} alt="logo" className={classes.img}/>
-                         <span className={classes.span}>nino's online shop<sup className={classes.TM}>TM</sup></span>
+                         <span className={classes.span}>
+                              nino's online shop
+                              <sup className={classes.TM}>TM</sup>
+                         </span>
                          
                     </div>
                </footer>

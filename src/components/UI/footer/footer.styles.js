@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core";
 const useStyle = makeStyles(theme => ({
      footer: {
           backgroundColor: theme.palette.common.blueGrey,
-          height: "18vh",
+          height: "21vh",
           width: "100%",
           zIndex: 1302, 
           position: "relative",
@@ -51,7 +51,7 @@ const useStyle = makeStyles(theme => ({
           fontSize: "7px"
      },
      img: {
-          height: "1.8em",
+          height: "3em",
           opacity: "0.75"
      },
      mainLink: {

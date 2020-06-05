@@ -12,7 +12,6 @@ import Button from "@material-ui/core/Button";
 import styles from "./cart-dropdown.styles";
 import "./cart-dropdown.styles.scss";
 
-
 const CartDropdown = ({ cartItems, cartTotal, itemsCount, history, dispatch }) => {
      const classes = styles();
 
@@ -25,14 +24,17 @@ const CartDropdown = ({ cartItems, cartTotal, itemsCount, history, dispatch }) =
                     ?
                     (
                          <div className={classes.cartItems}>
-                         {cartItems.map(cartItem => {
+                         {
+                         cartItems.map(cartItem => {
+                              
                               return(
                                    <CartItem 
                                    key={cartItem.id}
                                    cartItem={cartItem}
                                    />
                               )
-                         })}
+                         })
+                         }
                          </div>
                          
                     )

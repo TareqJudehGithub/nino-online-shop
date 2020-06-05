@@ -7,7 +7,7 @@ import {
 
 import './checkout-item.styles.scss';
 
-const CheckoutItem = ({cartItem , clearItem, addItem, removeItem }) => {
+const CheckoutItem = ({cartItem , clearItem, addItem, removeItem }) => { //cartItem prop from checkout.jsx
      const {imageUrl, name, quantity, price} = cartItem;
      return(
                <div className="checkout-item">     
@@ -19,14 +19,15 @@ const CheckoutItem = ({cartItem , clearItem, addItem, removeItem }) => {
                          <span 
                          className="arrow"
                          onClick={() => removeItem(cartItem)}
-                         >&#10094;</span>
-                         <span 
-                         className="value"
-                         >{quantity}</span>
+                         >
+                              &#10094;
+                         </span>
+                         <span className="value">{quantity}</span>
                          <span 
                          className="arrow"
-                         onClick={() => addItem(cartItem)}
-                         >&#10095;</span>
+                         onClick={() => addItem(cartItem)}>
+                              &#10095;
+                         </span>
                     </div>
                     <span className="price">${price}</span>
                     <div className="remove-button"
