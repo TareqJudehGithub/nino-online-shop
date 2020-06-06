@@ -7,14 +7,7 @@ import {selectCurrentDirectory} from "../../redux/directory/directory.selectors"
 import "./directory.styles.scss";
 
 class Directory extends React.Component {
-
-     constructor(){
-          super();
-          this.state = {
-               
-          };
-     };
-     
+  
      render() {
           const { sections } = this.props;
           return(
