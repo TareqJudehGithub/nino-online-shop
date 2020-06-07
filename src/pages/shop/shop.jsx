@@ -8,7 +8,6 @@ import './shop.scss';
 
 
 const ShopPage = ({ match }) => {
-
           return(
                <div className="shop-page">
 

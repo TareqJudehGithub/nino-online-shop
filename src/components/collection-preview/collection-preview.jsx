@@ -3,7 +3,7 @@ import CollectionItem from '../collection-item/collection-item';
 
 import "./collection-preview.scss";
 
-const CollectionPreview = ({ shopItem }) => {
+const CollectionPreview = ({ shopItem }) => {  //passed from collection-overview
      const {title, items} = shopItem;
      return (
           <div className="collection-preview">
