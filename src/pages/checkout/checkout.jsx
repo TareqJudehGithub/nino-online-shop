@@ -1,5 +1,6 @@
 import React from "react";
 import CheckoutItem from '../../components/checkout-item/checkout-item';
+import StripeCheckoutButton from "../../components/stripe-button/stripe-button";
 import {Redirect} from "react-router-dom"
 //redux:
 import { connect } from "react-redux";
@@ -42,11 +43,11 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                               <CheckoutItem 
                               key={cartItem.id}
                               cartItem={cartItem} //passing cartItem prop to checkout-item comp.
-                              />         
+                              />      
                          )          
                     })
                     :
-                    <Redirect to="/"/>
+                    <h3>Your shopping cart is empty</h3>
                }
                <div className="total">
                     <span>
@@ -60,12 +61,23 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                               `Total: (${itemCount} item): $${cartTotal}`
                               :
                               `Total: (${itemCount} items): $${cartTotal}`
-
-
-                         }
-                         
+                         } 
                          </span>
+                    <div>
+                         <StripeCheckoutButton />
+                         <div className="test-warning">
+                              <ul>
+                                   <li>CR info for payments:</li>
+                                   <li>CR#: 4242 4242 4242 4242</li>
+                                   <li>exp date: 12/22</li>
+                              </ul>
+                         </div>
+                    </div>     
+                      
+                    
+                     
                </div>
+               
           </div>
      )
 }

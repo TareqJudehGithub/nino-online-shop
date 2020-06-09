@@ -7,11 +7,13 @@ export const selectCollections = createSelector(
      shop => shop.collections
 );
 
+//display a custom collection based on it's id
 export const selectCollection = collectionUrlParams => createSelector(
      [selectCollections],
-     collections => collections[collectionUrlParams]
+     collections => collections[collectionUrlParams] 
+     // collections => Object.keys(collections[collectionUrlParams]) 
 );
-
+//display all collections under /shop
 export const selectCollectionsForPreview = createSelector(
      [selectCollections],
      collections => Object.keys(collections).map(key =>

@@ -1,0 +1,107 @@
+.collection-item {
+     width: 22vw;
+     display: flex;
+     flex-direction: column;
+     height: 350px;
+     align-items: center;
+     position: relative;  //for the .btn button.
+     &.btn:hover {
+       opacity: 0.7;
+     } 
+   .image {
+     width: 100%;
+     height: 95%;
+     background-size: cover;
+     background-position: center;
+     margin-bottom: 5px;
+     border-radius: 0.25em;
+   
+   }
+   .add-to-cart {
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     position: absolute;
+     top: 18em;
+     .item-qty {
+       // cursor: pointer;
+       height: 1.9em;
+       background-color: rgb(233, 154, 71);
+       width: 40%;
+       font-size: 1em;
+       color: rgba(74, 74, 80, 0.712);
+       margin-left: 0.5em;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       text-align: center;
+       border-radius: 5px;
+       box-shadow: 2px 2px 5px gray;
+       display: none;
+     .qty {
+       vertical-align: 0.45em;
+       margin: 0;
+       
+     }
+   
+     }
+     .btn {
+       width: 60%;
+       opacity: 0.7;
+       margin-right: .5em;
+       // cursor: pointer;
+       display: none;
+     }
+   }
+   
+   .collection-footer {
+     width: 80%;
+     height: 5%; // 5% of height: 350px in the parent .collection-item
+     display: flex;
+     justify-content: center;
+     flex-direction: row;
+     flex-wrap: wrap;
+     font-size: 16px;
+   
+     .name {
+       width: 90%;
+       margin-bottom: 15px;
+     }
+   
+     .price {
+       width: 10%;
+     }
+   }
+   .btn:active {
+     background-color: #ff6d00;
+     cursor: pointer;
+   }
+   .arrow:active{
+     font-size: 0.7em; 
+     color: #ff6d00;
+     font-weight: bold;
+     cursor: pointer;
+   }
+   
+   &:hover {
+     .image {
+       box-shadow: 0 0 10px #37474f;
+     }
+     .btn {
+       opacity: 0.75;
+       display: flex;
+     }
+     .item-qty {
+       font-size: 0.9em;
+       color: black;
+       opacity: .7;
+       display: flex;
+     }
+     .arrow {
+       cursor: pointer;
+     }
+   }
+   }
+      
