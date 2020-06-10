@@ -1,42 +1,89 @@
 .cart-item {
      width: 100%;
      display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+      justify-content: flex-start;
      height: 80px;
      margin-bottom: 15px;
    
      img {
-       width: 20%;
-       height: 4em;
+       margin: 10px auto;
+       width: 17%;
+       height: auto;
        border-radius: 5px;
+       border-radius: 50%
      }
    
      .item-details {
-       width: 70%;
+       width: 82%;
        display: flex;
-       flex-direction: column;
-       align-items: flex-start;
-       justify-content: center;
-       padding: 10px 20px;
+       flex-direction: row;
+       align-items: center;
+       justify-content: flex-start;
+       padding: 10px 5px;
        color: black;
-   
+       
        .name {
-         font-size: 14px;
-        width: 90%;
-       }
-       .price {
+        font-size: 14px;
+        width: 60%;
+        margin-left: 0;
         text-align: center;
-        font-size: 13px;
-        margin-left: 10%;
+       
        }
-     }
+       .change-qty{   
+       
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+  
+         .price {
+          text-align: center;
+          font-size: 0.9em;
+          margin: 5px;
+         }
+         .item-qty {
+          margin: 5px;
+          font-size: 0.7em;
+          color: black;
+       }
+       .arrow {
+        cursor: pointer;
+        margin: 2px;
+      }
+      
      .btn-remove {
-      margin: auto 0;
+     margin-top: 5px;
+     margin-left: 5px;
      }
+     }
+    }
      .btn-remove:hover{
-     
+     cursor: pointer;
      }
      .btn-remove:active{
-      
+      font-size: small;
+     
      }
+
    }
+
+
+   //
+  //  .arrow:active{
+  //   font-size: 0.7em; 
+  //   color: #ff6d00;
+  //   font-weight: bold;
+  //   cursor: pointer;
+  // }
+  
+  // &:hover {
+  //   .image {
+  //     box-shadow: 0 0 10px #37474f;
+  //   }
+  //   .btn {
+  //     opacity: 0.75;
+  //     display: flex;
+  //   }
    

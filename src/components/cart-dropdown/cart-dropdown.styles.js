@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/";
 const useStyles = makeStyles(theme => ({
      CartDropdown: {
           position: "absolute",
-          width: "300px",
+          width: "350px",
           height: "340px",
           display: "flex",
           flexDirection: "column",

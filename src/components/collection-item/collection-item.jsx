@@ -2,14 +2,14 @@ import React from 'react';
 
 //redux
 import {connect} from "react-redux";
- import {addItem} from "../../redux/cart/cart.actions";
+import {addItem} from "../../redux/cart/cart.actions";
 import {selectCartItemsCount, selectCartItems} from "../../redux/cart/cart.selectors";
 import Button from "@material-ui/core/Button";
 import './collection-item.scss';
 import { createStructuredSelector } from 'reselect';
 
 
-const CollectionItem = ({collectionItem, itemcount, dispatch, cartItems }) => {
+const CollectionItem = ({collectionItem, dispatch }) => {
      
      const { name, price, imageUrl } = collectionItem;
      
