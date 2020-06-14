@@ -29,7 +29,8 @@ import styles from "./header.styles";
 
 
 const Header = ({ currentUser, hidden }) => {
-
+     
+    
 //Material-UI:
      const classes = styles();     
      const theme = useTheme();
@@ -86,22 +87,24 @@ const Header = ({ currentUser, hidden }) => {
                     aria-haspopup={anchorEL ? "true" : undefined}
                     />  
                     {
-                         currentUser
-                         ?
-                         ( <Tab 
-                         className={classes.tab}
-                         onClick={() => auth.signOut()}
-                         component={Link} to="/"
-                         label="Sign Out"
-                         disableRipple
-                         /> )
-                         :
-                         (<Tab 
-                         className={classes.tab}
-                         component={Link} to="/signin"
-                         label="Sign In"
-                         disableRipple
-                         />) 
+                    currentUser
+                    ?
+                    ( <Tab 
+                    className={classes.tab}
+                    style={{width: "10em", fontSize: "13px"}}
+                    onClick={() => auth.signOut()}
+                    component={Link} to="/"
+                    label={`${currentUser.displayName} 
+                              ,Sign Out`}
+                    disableRipple
+                    /> )
+                    :
+                    (<Tab 
+                    className={classes.tab}
+                    component={Link} to="/signin"
+                    label="Sign In"
+                    disableRipple
+                    />) 
                     } 
                     <CartIcon />                       
           </Tabs>   
@@ -167,7 +170,7 @@ const drawer = (
           onClose={() => setopenDrawer(false)}
           >
                <List disablePadding>
-                    <ListItem
+                    {/* <ListItem
                     component={Link} to="/"
                     onClick={() => {
                          setopenDrawer(false);
@@ -182,6 +185,29 @@ const drawer = (
                               alt="company logo"
                               className={classes.logo}/>
                          </ListItemText>
+                    </ListItem> */}
+                    <ListItem
+                    component={Link} to="/signin"
+                    onClick={() => {
+                         setopenDrawer(false);
+                         setValue(3);
+                    }}
+                    selected={value === 3}>
+                   {
+                        currentUser
+                        ?
+                         <ListItemText
+                         onClick={() =>auth.signOut()}>
+                              <p>Hello, {currentUser.displayName}</p>
+                         </ListItemText>
+                        :
+                        <ListItemText 
+                        component={Link} to="/signin">
+                             No User
+                        </ListItemText>
+                        
+                   }
+                        
                     </ListItem>
 
                     <ListItem
@@ -234,6 +260,8 @@ const drawer = (
                    }
                         
                     </ListItem>
+                    
+                   
                </List>
           </SwipeableDrawer>
           <IconButton className={classes.drawerIconContainer}
