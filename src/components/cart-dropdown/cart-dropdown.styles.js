@@ -4,7 +4,7 @@ const useStyles = makeStyles(theme => ({
      CartDropdown: {
           position: "absolute",
           width: "350px",
-          height: "340px",
+          height: "400px",
           display: "flex",
           flexDirection: "column",
           padding: "20px",
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
      },
      cartItems: {
           fontSize: "1em",
-          height: "220px",
+          height: "280px",
           display: "flex",
           flexDirection: "column",
           textAlign: "start",
@@ -47,16 +47,17 @@ const useStyles = makeStyles(theme => ({
           color: "black"
      },
      cartFooter: {
-          marginTop: "0.5em",
+          marginTop: "1em",
           height: "5em",
           color: "black",
           display: "flex",
           justifyContent: "center",
-          flexDirection: "column"
+          flexDirection: "column",
+          alignItems: "center"
      },
      cartBtn: {
           width: "75%",
-          margin: " 0 auto",
+          margin: " 0.5em auto",
           "&:active": {
                backgroundColor: "#ff6d00"
           }    

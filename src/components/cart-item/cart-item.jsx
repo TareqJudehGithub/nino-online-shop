@@ -31,11 +31,12 @@ const CartItem = ({
                           </span>
 
                          <span className="price">${price}</span>
+
                          <span className="btn-remove" 
                          onClick={() => clearItem(cartItem)}
                          >
-                         <DeleteIcon color="secondary" fontSize="small"/>
-                    </span>
+                              <DeleteIcon color="secondary" fontSize="small"/>
+                         </span>
                     </div>    
                </div>
               
