@@ -41,6 +41,21 @@ const styles = makeStyles(theme => ({
                backgroundColor: "transparent"
           }
      },
+     tabSignIn: {
+          ...theme.typography.tab,
+          color: theme.palette.common.orange,
+          fontWeight: 500,
+          minWidth: 10,
+          marginLeft: "25px",
+          "&:hover": {          
+               textShadow : `0 0 5px ${theme.palette.common.white}`,
+               backgroundColor: "transparent"
+          },
+          "&:focus": {
+               color: theme.palette.common.white
+          }
+
+     },
      logoContainer: {
           padding: "1em",
           "&:hover": {

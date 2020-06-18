@@ -100,7 +100,7 @@ const Header = ({ currentUser, hidden }) => {
                     /> )
                     :
                     (<Tab 
-                    className={classes.tab}
+                    className={classes.tabSignIn}
                     component={Link} to="/signin"
                     label="Sign In"
                     disableRipple

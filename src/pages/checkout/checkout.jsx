@@ -1,20 +1,23 @@
 import React from "react";
 import CheckoutItem from '../../components/checkout-item/checkout-item';
 import StripeCheckoutButton from "../../components/stripe-button/stripe-button";
+import {Link} from "react-router-dom";
 //redux:
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {
           selectCartItems, selectCartTotal, selectCartItemsCount
      } from "../../redux/cart/cart.selectors";
+import { selectCurrentUsers } from "../../redux/user/user.selectors";
 import "./checkout.styles.scss";
+import { Button } from "@material-ui/core";
 
-const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
+const CheckoutPage = ({ cartItems, cartTotal, itemCount, currentUser }) => {
      
      return(
          
           <div className="checkout-page">
-                <h2 className="checkout-title">Checkout Page</h2>
+                <h2 className="checkout-title">Shopping Cart</h2>
                <div className="checkout-header">
                     <div className="header-block">
                          <span>Product</span>
@@ -48,8 +51,8 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                     :
                     <h3>Your shopping cart is empty</h3>
                }
-               <div className="total">
-                    <span>
+               <div className="checkout-total">
+                    <span className="total">
                          {
                               itemCount === 0 && cartTotal <= 0
                               ?
@@ -61,20 +64,49 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
                               :
                               `Total: (${itemCount} items): $${cartTotal}`
                          } 
-                         </span>
-                    <div>
-                         <StripeCheckoutButton />
-                         <div className="test-warning">
-                              <ul>
-                                   <li>CR info for payments:</li>
-                                   <li>CR#: 4242 4242 4242 4242</li>
-                                   <li>exp date: 12/22</li>
-                              </ul>
+                    </span>
+                    {
+                    currentUser
+                    ?
+                    (
+                         <div>
+                              <span className="stripe"><StripeCheckoutButton /></span>
+                              <Button
+                                   style={{padding: " 0.25em 1.1em",
+                                   marginTop: "0.5em"}} variant="contained" color="secondary">
+                                   <Link to="/" style={{color: "white"}}
+                              >
+                                   Cash on Delivery</Link>     
+                              </Button>
                          </div>
-                    </div>     
-                      
-                    
-                     
+                    )
+                    :
+                         <div>
+                         <h4>
+                              Please <Link 
+                              to="/signin"
+                              style={{color:"orange"}}>Sign in</Link> to continue
+                         with your order. 
+                         </h4>
+                         </div>
+                    }
+{/*                     
+                    <span className="stripe"><StripeCheckoutButton /></span>
+                    <Button
+                         style={{padding: " 0.25em 1.1em"}} variant="contained" color="secondary">
+                         <Link to="/" style={{color: "white"}}
+                         >
+                              Cash on Delivery</Link>     
+                    </Button> */}
+{/*  
+                    <div className="test-warning">
+                         <ul>
+                              <li>CR info for payments:</li>
+                              <li>CR#: 4242 4242 4242 4242</li>
+                              <li>exp date: 12/22</li>
+                         </ul>
+                    </div> */}
+                           
                </div>
                
           </div>
@@ -83,7 +115,8 @@ const CheckoutPage = ({ cartItems, cartTotal, itemCount }) => {
 const mapStateToProps = createStructuredSelector({
      cartItems: selectCartItems,
      cartTotal: selectCartTotal,
-     itemCount: selectCartItemsCount
+     itemCount: selectCartItemsCount,
+     currentUser: selectCurrentUsers
 });
 
 export default connect(mapStateToProps)(CheckoutPage);

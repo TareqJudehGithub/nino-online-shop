@@ -49,12 +49,17 @@ const CartDropdown = ({ cartItems, cartTotal, itemsCount, history, dispatch }) =
                     cartItems.length
                     ?
                     <div className={classes.cartFooter}>
+                         
                          {
                               itemsCount  <= 1
                               ?
-                              `Total: (${itemsCount} item) $${cartTotal}`
+                              <span>Total: ({itemsCount} item)
+                               <span style={{color:"orange"}}> ${cartTotal}</span>
+                              </span>
                               :
-                              `Total: (${itemsCount} items) $${cartTotal}`
+                              <span>Total: ({itemsCount} items)
+                               <span style={{color:"orange"}}> ${cartTotal}</span>
+                              </span>
                          }
                          
                          <Button 
@@ -66,7 +71,7 @@ const CartDropdown = ({ cartItems, cartTotal, itemsCount, history, dispatch }) =
                               dispatch(toggleCartHidden())
                          }}
                          style={{marginTop: "auto"}}>
-                              Checkout
+                              View Cart
                          </Button>
                     </div>
                     :
@@ -79,7 +84,7 @@ const CartDropdown = ({ cartItems, cartTotal, itemsCount, history, dispatch }) =
                          dispatch(toggleCartHidden())
                     }}
                     style={{marginTop: "auto"}}>
-                         Checkout
+                         View Cart
                     </Button>
                }
              

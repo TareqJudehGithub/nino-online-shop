@@ -27,17 +27,25 @@
      .cart-empty {
        margin-top: 2em;
      }
-     .total {
-       margin-top: 30px;
-       margin-left: auto;
-       font-size: 16px;
-     }
-     .test-warning { 
+     .checkout-total {   
       width: 100%;
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap;
-      margin-top: 40px;
+      justify-content: center;
+      align-items: center;
+      margin: 2.5em auto;
+      font-size: 16px;
+      
+     }
+     .total {
+      margin: 0.25em auto 2em auto;
+     }
+     .stripe {
+      margin: 0.5em auto;
+     }
+     .test-warning { 
+      width: 100%;
+      margin: auto 5em;
       font-size: 15px;
       color: black;
       box-shadow: 0 0 5px grey;

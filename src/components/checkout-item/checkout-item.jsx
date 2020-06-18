@@ -1,10 +1,9 @@
 import React from "react";
-
 import {connect} from 'react-redux';
 import { 
      clearItemFromCart, addItem, removeItem 
 } from "../../redux/cart/cart.actions";
-
+import DeleteIcon from "@material-ui/icons/Delete";
 import './checkout-item.styles.scss';
 
 const CheckoutItem = ({cartItem , clearItem, addItem, removeItem }) => { //cartItem prop from checkout.jsx
@@ -30,11 +29,11 @@ const CheckoutItem = ({cartItem , clearItem, addItem, removeItem }) => { //cartI
                          </span>
                     </div>
                     <span className="price">${price}</span>
-                    <div className="remove-button"
+                    <span className="remove-button"
                     onClick={() => clearItem(cartItem)} //removes selected item from cart.
                     >
-                         &#10005;
-                    </div>  
+                         <DeleteIcon color="secondary" fontSize="small"/>
+                    </span>  
                </div>   
          
      )
