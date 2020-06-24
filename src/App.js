@@ -42,8 +42,10 @@ class App extends React.Component {
           });
       });
       }
+
     //user logout
-      setCurrentUser(userAuth);  
+      setCurrentUser(userAuth);
+
     });
   }
 
@@ -80,13 +82,10 @@ class App extends React.Component {
   }
 }
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUsers
-})
+  currentUser: selectCurrentUsers,
+});
 const mapDispatchToProps = (dispatch) => ({
-  //whatever object we passing to dispatch, is goin to be an action object, redux
-  //passes to every reducer.
-  setCurrentUser: user => dispatch(setCurrentUser(user))  //invoking setCurrentuser
-  //with the payload from the user.reducer.  object returning an action object.
+  setCurrentUser: user => dispatch(setCurrentUser(user)) 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 

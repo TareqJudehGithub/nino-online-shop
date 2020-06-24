@@ -17,7 +17,9 @@ export const selectCollection = collectionUrlParams => createSelector(
 export const selectCollectionsForPreview = createSelector(
      [selectCollections],
      collections => Object.keys(collections).map(key =>
-          collections[key]) //get all keys, then map over that array of keys so 
-     // we get the value of collection objects of that key, which will return
-     //an array of items.
+          collections[key]) 
+     /* get all keys, then map over that array of keys so 
+     we get the value of collection objects of that key, which will return
+     an array of items.
+     */
 );

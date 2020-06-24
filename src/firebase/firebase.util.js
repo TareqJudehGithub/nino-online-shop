@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/firestore"; //db
 import "firebase/auth";      //authentication
 
+
 const config = {
    apiKey: "AIzaSyCIRAxQQkja29M1hni-z3FH-Vgac_GRQng",
     authDomain: "nino-s-shop.firebaseapp.com",
@@ -40,6 +41,21 @@ const config = {
       }
       return userRef;
    };
+
+   // storing shop items in firestore db:
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+   const collectionRef = firestore.collection(collectionKey);
+
+   const batch = firestore.batch();
+   objectsToAdd.forEach(obj => {
+      // give a new document reference in this collection, and randomly generate a new ID:
+      const newDocRef = collectionRef.doc(); 
+      // batcj all together:
+      batch.set(newDocRef, obj);
+   });
+
+   return await batch.commit();
+};
 
 export const auth = firebase.auth();  
 export const firestore = firebase.firestore();
