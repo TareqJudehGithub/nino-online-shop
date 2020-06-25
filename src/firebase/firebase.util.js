@@ -43,9 +43,12 @@ const config = {
    };
 
    // storing shop items in firestore db:
+
+   // A. Create addCollectionAndDocuments function
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
    const collectionRef = firestore.collection(collectionKey);
 
+   //B. Initialize the batch()
    const batch = firestore.batch();
    objectsToAdd.forEach(obj => {
       // give a new document reference in this collection, and randomly generate a new ID:
@@ -54,8 +57,38 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
       batch.set(newDocRef, obj);
    });
 
+   //C. Commit the batch()
    return await batch.commit();
 };
+
+   // Fetching collections/data from Firebase into the front-end:
+   export const convertCollectionsSnapshotToMap = async (collections) => {
+      
+      try {
+         const transformedCollection = await collections.docs.map(doc => {
+            const { title, items } = doc.data();
+            
+            return {
+               routename: encodeURI(title.toLowerCase()),
+               id: doc.id,
+               title : title,
+               items: items
+            }
+         });
+         return transformedCollection.reduce((accumulator, collection) => {
+            accumulator[collection.title.toLowerCase()] = collection;
+            return accumulator;
+         } , {})
+         
+      } 
+      catch (error) {
+
+         console.log("FETCHING ERROR! ", error.message);
+      }
+      
+   }
+
+
 
 export const auth = firebase.auth();  
 export const firestore = firebase.firestore();
